@@ -1,8 +1,8 @@
-# Awesome-name
+# FiFBLikeLikeLike
 
-![Badge Status](https://ci-as-a-service)
 
-OverviewOverviewOverview
+FiFBLikeLikeLike is Auto Liki click in facebook.
+
 
 ## Description
 
@@ -12,7 +12,7 @@ DescriptionDescriptionDescription
 
 ***DEMO:***
 
-![Demo](https://image-url.gif)
+![Demo](./demo/s-demo_v0.1.jpg)
 
 ## Features
 
@@ -24,19 +24,17 @@ For more information, see `awesome-tool --help`.
 
 ## Requirement
 
-- Requirement
-- Requirement
-- Requirement
+- Windows 7以降
 
 ## Usage
 
-1. Usage
-2. Usage
-3. Usage
+1. Selenium Driver
+
 
 ## Installation
 
-    $ git clone https://github.com/b4b4r07/awesome-tool
+githubページからダウンロードしてください
+
 
 ## Anything Else
 
@@ -46,8 +44,8 @@ AnythingAnythingAnything
 
 ## Author
 
-[@b4b4r07](https://twitter.com/b4b4r07)
+[fifi](http://github.com/peace098beat)
 
 ## License
 
-[MIT](http://b4b4r07.mit-license.org)
+- MIT
