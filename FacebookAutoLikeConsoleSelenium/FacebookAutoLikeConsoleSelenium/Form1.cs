@@ -10,8 +10,6 @@ namespace FacebookAutoLikeConsoleSelenium
 {
     public partial class Form1 : Form
     {
-        //private System.Threading.CancellationTokenSource tokenSource;
-        //private System.Threading.CancellationToken cancelToken;
 
         /* ログ関連 起動してからの総イイネ数 */
         public int TotalLikeNumber = 0;
@@ -27,8 +25,6 @@ namespace FacebookAutoLikeConsoleSelenium
         /* アプリケーション管理 */
         bool AutoLikeApplication_IsRun = false; // アプリの状態
         public int MaxLikeCountPerCycle = 15; // １サイクルあたりのいいね数
-
-        //TaskRunner taskRunner;
 
 
         public Form1()
@@ -46,6 +42,12 @@ namespace FacebookAutoLikeConsoleSelenium
             this.webBrowser1.Navigate(@"https://www.facebook.com/");
             webBrowser1.DocumentCompleted += WebBrowser1_DocumentCompleted;
             webBrowser1.Navigating += WebBrowser1_Navigating;
+
+            Properties.Settings.Default.Reload();
+            textBox_FB_ID.Text = Properties.Settings.Default.facebook_id;
+            textBox_FB_Password.Text = Properties.Settings.Default.facebook_pw;
+
+
 
         }
 
@@ -69,8 +71,6 @@ namespace FacebookAutoLikeConsoleSelenium
             this.button_Run.Enabled = true;
             this.button_Stop.Enabled = true;
         }
-
-
 
         /// <summary>
         /// 自動いいね押下アプリのメインループ
@@ -117,11 +117,13 @@ namespace FacebookAutoLikeConsoleSelenium
                 return;
             }
 
+            int n = 0;
+            System.Random r = new System.Random();
+            n = r.Next(0, UFI_UnLikeLinks.Count - 1);
 
             /* ターゲットのいいね(最も先頭)に移動 */
             if (UFI_UnLikeLinks.Count > 0)
             {
-                int n = 0;
                 Debug.WriteLine($"elm number : {n}");
 
                 HtmlElement elm = UFI_UnLikeLinks[n];
@@ -143,7 +145,32 @@ namespace FacebookAutoLikeConsoleSelenium
                 }
                 Debug.WriteLine("elm posion :" + point.ToString());
                 point.Y -= this.webBrowser1.Height / 2;
-                webBrowser1.Document.Window.ScrollTo(point);
+
+                await Task.Run(() =>
+                {
+
+                    int Div =60;
+                    for (int i = 30; i <= Div; i++)
+                    {
+                        int newY = (int)(point.Y * (i / (float)Div));
+
+
+                        Point deltaPoint = new Point(point.X, newY);
+
+                        webBrowser1.BeginInvoke(new Action(() =>
+                        {
+                            webBrowser1.Document.Window.ScrollTo(deltaPoint);
+                            webBrowser1.Update();
+                        }
+                        ));
+                        Thread.Sleep(10);
+                        this.webBrowser1.BeginInvoke(new Action(() => this.webBrowser1.Update()));
+
+                    }
+
+                });
+
+
                 this.webBrowser1.Update();
             }
 
@@ -159,6 +186,8 @@ namespace FacebookAutoLikeConsoleSelenium
             /* クリックディレイの設定項目 */
             this.ClickDelay_MinSec = (int)3;
             this.ClickDelay_MaxSec = (int)7;
+            this.ClickDelay_MinSec = (int)numericUpDown_ClickDelay_MinSec.Value;
+            this.ClickDelay_MaxSec = (int)numericUpDown_ClickDelay_MaxSec.Value;
 
             /* 次のクリックまでのディレイ時間の計算 */
             System.Random rand = new System.Random();
@@ -177,7 +206,6 @@ namespace FacebookAutoLikeConsoleSelenium
             await Task.Run(() =>
              {
                  /* CSSで色を変更 */
-                 int n = 0;
                  HtmlElement elm = UFI_UnLikeLinks[n];
                  elm.Style = "outline: solid 1px #4267B2";
 
@@ -185,12 +213,11 @@ namespace FacebookAutoLikeConsoleSelenium
                  {
                      float alpha = (ClickDelay_CurrentDelaySec - ClickDelay_ElapsedTime) / ClickDelay_CurrentDelaySec;
 
-                     elm.Style = $"background: linear-gradient(90deg, white, rgba(97,144,232,{1}) {(int)(alpha*100)}%, white {(int)(alpha * 100)-20}%);";
+                     elm.Style = $"background: linear-gradient(90deg, white, rgba(97,144,232,{1}) {(int)(alpha * 100)}%, white {(int)(alpha * 100) - 20}%);";
 
                      this.ClickDelay_ElapsedTime = ClickDelay_CurrentDelaySec - (DateTime.Now.Ticks - ClickDelay_StartTime) / 10000000f;
 
                      // 経過時間の計算
-                     Debug.WriteLine("delayTime" + ClickDelay_ElapsedTime);
 
                      /* キャンセル終了 : 途中終了判定 */
                      if (this.AutoLikeApplication_IsRun == false)
@@ -212,7 +239,6 @@ namespace FacebookAutoLikeConsoleSelenium
 
             await Task.Run(() =>
                 {
-                    int n = 0;
                     HtmlElement elm = UFI_UnLikeLinks[n];
 
                     //elm.InvokeMember("click");
@@ -247,8 +273,6 @@ namespace FacebookAutoLikeConsoleSelenium
         /// <summary>
         /// アプリ状態の表示用タイマー
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void timer_FormStatusUpdater_Tick(object sender, EventArgs e)
         {
             string TextProgressBar = "";
@@ -266,190 +290,101 @@ namespace FacebookAutoLikeConsoleSelenium
 
             this.Text = "総いいね数:" + this.TotalLikeNumber + " ";
             this.Text += this.ClickDelay_StatusText + TextProgressBar;
+
+            // 総いいね数を表示
+            this.label_LikeCount.Text = this.TotalLikeNumber.ToString();
         }
 
 
+        /// <summary>
+        /// アプリスタートボタンのイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_RunnStop_MianScheduler_Click(object sender, EventArgs e)
         {
             this.timer_Scrayping.Enabled = true; // タイマースタート
             this.AutoLikeApplication_IsRun = true; // アプリ動作要求状態スタート
         }
 
+        /// <summary>
+        /// アプリストップボタンのイベント
+        /// </summary>
         private void button_Stop_Click(object sender, EventArgs e)
         {
             this.AutoLikeApplication_IsRun = false; // アプリ動作要求状態ストップ
 
         }
 
-        //private async void timer_MainSchedulerTimer_Tick(object sender, EventArgs e)
-        //{
-        //    return;
-        //    this.timer_MainSchedulerTimer.Enabled = false;
-
-
-        //    this.webBrowser1.Navigate(@"http://takachan.hatenablog.com/entry/2017/09/09/225342");
-
-        //    this.tokenSource = new System.Threading.CancellationTokenSource();
-        //    this.cancelToken = this.tokenSource.Token;
-
-        //    /* クリックディレイの設定項目 */
-        //    this.ClickDelay_MinSec = (int)1;
-        //    this.ClickDelay_MaxSec = (int)3;
-        //    this.ClickDelay_CurrentDelaySec = (int)0;
-
-        //    // HTML要素の取得
-        //    List<HtmlElement> UFILikeLinks = FacebookHacking.Get_LikeLinkes(webBrowser1);
-        //    HtmlElementCollection a_elms = webBrowser1.Document.GetElementsByTagName("a");
-        //    int Nlike = a_elms.Count;
-
-        //    // if(UFILikeLinks[0].GetAttribute("aria-pressed") == "true") { /*presed*/};
-        //    // UFILikeLinks[0].GetAttribute("className") == "UFILikeLink UFIReactionLink";
-
-
-        //    await Task.Run(() =>
-        //    {
-        //        Debug.WriteLine("Wait Start");
-
-        //        System.Random rand = new System.Random();
-        //        this.ClickDelay_StatusText = "";
-
-        //        // HTML要素の取得
-
-        //        Debug.WriteLine($"Nlike{Nlike}");
-        //        for (int i = 0; i < Nlike; i++)
-        //        {
-        //            /* キャンセル処理 */
-        //            if (this.cancelToken.IsCancellationRequested)
-        //            {
-        //                Debug.WriteLine("Cancel");
-        //                this.ClickDelay_StatusText = "キャンセルされました";
-        //                break;
-        //            }
-
-
-        //            /* 次のクリックまでのディレイ時間 */
-        //            this.ClickDelay_CurrentDelaySec = rand.Next(this.ClickDelay_MinSec, this.ClickDelay_MaxSec);
-
-        //            /* 残り時間計算用:　待ち開始の時間 */
-        //            this.ClickDelay_StartTime = DateTime.Now.Ticks;
-
-        //            /* 現在の状況 */
-        //            this.ClickDelay_StatusText = $"[{i}/{Nlike}]";
-
-        //            /* ClickDelay */
-        //            // T.B.D : この間はキャンセルができない.非同期かする
-        //            Thread.Sleep(this.ClickDelay_CurrentDelaySec * 1000);
-
-        //            /* LikeBtn.Click(); */
-
-        //            Debug.WriteLine($"[{i}/30] Clicked");
-        //        }
-
-        //        Debug.WriteLine("Wait End");
-        //    }, this.cancelToken);
-
-        //    // タイマー継続の判定
-        //    if (this.tokenSource.IsCancellationRequested)
-        //        this.timer_MainSchedulerTimer.Enabled = false;
-        //    else
-        //        this.timer_MainSchedulerTimer.Enabled = true;
-
-        //}
-
-
-
-        /// <summary>
-        /// HTML要素に移動
-        /// </summary>
-        public void MoveElementPosition(WebBrowser webBrowser, HtmlElement elm)
+        private void button3_Click(object sender, EventArgs e)
         {
-            var point = GetOffset(elm);
-            point.X = 0;
-            point.Y += 100;
-            webBrowser.Document.Window.ScrollTo(point);
+            this.webBrowser1.Navigate(@"http://facebook.com/");
         }
-        /// <summary>
-        /// HTML要素の絶対位置を取得
-        /// </summary>
-        public Point GetOffset(HtmlElement el)
-        {
-            //get element pos
-            Point pos = new Point(el.OffsetRectangle.Left, el.OffsetRectangle.Top);
 
-            //get the parents pos
-            HtmlElement tempEl = el.OffsetParent;
-            while (tempEl != null)
+        private void button_Reflesh_Click(object sender, EventArgs e)
+        {
+            this.webBrowser1.Refresh();
+        }
+
+        private void button_Login_Click(object sender, EventArgs e)
+        {
+
+            string id = textBox_FB_ID.Text;
+            string pw = textBox_FB_Password.Text;
+
+
+
+            /* input要素を全部取得 */
+            HtmlElementCollection InputCollection = webBrowser1.Document.GetElementsByTagName("input");
+
+            /* input要素のコレクションから, email入力Boxとパスワード入力Boxの要素を取得. jQuery的な */
+            foreach (HtmlElement input_element in InputCollection)
             {
-                pos.X += tempEl.OffsetRectangle.Left;
-                pos.Y += tempEl.OffsetRectangle.Top;
-                tempEl = tempEl.OffsetParent;
-            }
-            return pos;
-        }
-
-    }
-
-
-    public class TaskRunner
-    {
-        private WebBrowser webbrowser;
-        private int waitSec; // メインループのwait時間
-        private CancellationTokenSource tokenSource;
-        private CancellationToken cancelToke;
-
-        public bool IsRunning = false;
-
-        private Task task;
-
-        public TaskRunner(WebBrowser webbrowser, int waitSec = 5)
-        {
-            this.webbrowser = webbrowser;
-            this.waitSec = waitSec;
-            this.IsRunning = false;
-        }
-
-        public void Start()
-        {
-            if (IsRunning == true)
-            {
-                Debug.WriteLine("[WARNING] task is running");
-                return;
-            }
-
-            // タスクの実行
-            this.tokenSource = new System.Threading.CancellationTokenSource();
-            this.cancelToke = this.tokenSource.Token;
-            Task task = Task.Run(() => TaskMainloop(this.webbrowser, this.waitSec, this.cancelToke), cancelToke);
-            this.IsRunning = true;
-        }
-
-        public void Stop()
-        {
-            this.tokenSource.Cancel();
-            this.tokenSource.Dispose();
-        }
-
-        public static void TaskMainloop(WebBrowser webbrowser, int waitSec, CancellationToken cancelToken)
-        {
-            int ct = 0;
-
-            while (true)
-            {
-
-                if (cancelToken.IsCancellationRequested)
+                /* アカウント入力用box */
+                if (input_element.GetAttribute("name") == "email")
                 {
-                    Debug.WriteLine(" 処理停止");
-                    break;
+                    input_element.SetAttribute("value", id);
                 }
 
-                Thread.Sleep(waitSec * 1000);
-                ct++;
-                Debug.WriteLine("{1}回目のループです", ct.ToString());
+                /* パスワード入力ボックス */
+                if (input_element.GetAttribute("name") == "pass")
+                {
+                    input_element.SetAttribute("value", pw);
+                }
+            }
 
-                /* ここでタスクを実行 */
-                webbrowser.Navigate(@"http://google.com");
+            /* id=loginbuttonのボタン要素を取得 */
+            HtmlElement btn = webBrowser1.Document.GetElementById("loginbutton");
+            /* ボタンをクリック! */
+            btn.InvokeMember("click");
+        }
 
+        private void textBox_FB_ID_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.facebook_id = textBox_FB_ID.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void textBox_FB_Password_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.facebook_pw = textBox_FB_Password.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void checkBox_FB_PW_Cheked_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_FB_PW_Cheked.Checked)
+            {
+                // 表示する
+                textBox_FB_Password.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                // 非表示
+                textBox_FB_Password.UseSystemPasswordChar = true;
             }
         }
     }
+
+
 }
