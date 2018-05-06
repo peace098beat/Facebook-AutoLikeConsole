@@ -6,9 +6,8 @@ FiFBLikeLikeLike is Auto Liki click in facebook.
 
 ## Description
 
-DescriptionDescriptionDescription
-DescriptionDescriptionDescription
-DescriptionDescriptionDescription
+自動でLikeLikeLikeしてくれるよ
+
 
 ***DEMO:***
 
@@ -29,6 +28,13 @@ For more information, see `awesome-tool --help`.
 ## Usage
 
 1. Selenium Driver
+
+
+## 挙動
+- 延々とイイネしているとFBにBotか確認される。
+- やはり15分に一回ぐらいの動作で30いいねぐらいが妥当。
+- FBは急に更新する。
+- ログインページに飛ばされることもある。
 
 
 ## Installation

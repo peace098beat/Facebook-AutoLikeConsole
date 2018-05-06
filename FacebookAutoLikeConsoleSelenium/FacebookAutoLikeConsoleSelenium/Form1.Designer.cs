@@ -84,13 +84,13 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(566, 554);
+            this.webBrowser1.Size = new System.Drawing.Size(719, 554);
             this.webBrowser1.TabIndex = 2;
             this.webBrowser1.Url = new System.Uri("", System.UriKind.Relative);
             // 
             // timer_MainSchedulerTimer
             // 
-            this.timer_MainSchedulerTimer.Tick += new System.EventHandler(this.timer_MainSchedulerTimer_Tick);
+            //this.timer_MainSchedulerTimer.Tick += new System.EventHandler(this.timer_MainSchedulerTimer_Tick);
             // 
             // timer_FormStatusUpdater
             // 
@@ -147,7 +147,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
             this.splitContainer1.Size = new System.Drawing.Size(854, 554);
-            this.splitContainer1.SplitterDistance = 284;
+            this.splitContainer1.SplitterDistance = 131;
             this.splitContainer1.TabIndex = 0;
             // 
             // tabPage2
