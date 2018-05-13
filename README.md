@@ -27,9 +27,10 @@ LikeLikeLike is Auto Like click in facebook.
 - 追加していきます
 
 
-## Installation
+## 使い方
 
-githubページからダウンロードしてください
+githubページからダウンロードして使ってください。
+インストールは不要です。
 
 https://github.com/peace098beat/Facebook-AutoLikeConsole/releases/tag/1.0
 
