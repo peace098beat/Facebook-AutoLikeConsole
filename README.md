@@ -31,7 +31,7 @@ LikeLikeLike is Auto Like click in facebook.
 
 githubページからダウンロードしてください
 
-
+https://github.com/peace098beat/Facebook-AutoLikeConsole/releases/tag/1.0
 
 ## Author
 
