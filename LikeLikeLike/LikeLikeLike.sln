@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookAutoLikeConsoleSelenium", "FacebookAutoLikeConsoleSelenium\FacebookAutoLikeConsoleSelenium.csproj", "{D5F087A9-9BF6-41DF-8CBD-25B5ABFE6C0A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LikeLikeLike", "LikeLikeLike\LikeLikeLike.csproj", "{D5F087A9-9BF6-41DF-8CBD-25B5ABFE6C0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

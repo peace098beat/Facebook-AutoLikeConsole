@@ -1,7 +1,7 @@
-# FiFBLikeLikeLike
+# LikeLikeLike
 
 
-FiFBLikeLikeLike is Auto Liki click in facebook.
+LikeLikeLike is Auto Like click in facebook.
 
 
 ## Description
@@ -11,23 +11,13 @@ FiFBLikeLikeLike is Auto Liki click in facebook.
 
 ***DEMO:***
 
-![Demo](./demo/s-demo_v0.1.jpg)
+![Demo](./demo/demo_v1.0.png)
 
-## Features
-
-- Awesome function
-- Awesome UI
-- ...
-
-For more information, see `awesome-tool --help`.
 
 ## Requirement
 
 - Windows 7以降
 
-## Usage
-
-1. Selenium Driver
 
 
 ## 挙動
@@ -42,11 +32,6 @@ For more information, see `awesome-tool --help`.
 githubページからダウンロードしてください
 
 
-## Anything Else
-
-AnythingAnythingAnything
-AnythingAnythingAnything
-AnythingAnythingAnything
 
 ## Author
 

@@ -6,9 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FacebookAutoLikeConsoleSelenium
+namespace FBLikeLikeLike
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
 
         /* ログ関連 起動してからの総イイネ数 */
@@ -18,22 +18,23 @@ namespace FacebookAutoLikeConsoleSelenium
         public int ClickDelay_MinSec = 1;
         public int ClickDelay_MaxSec = 3;
         public int ClickDelay_CurrentDelaySec = 0;
+        public int MaxLikeCountPerCycle = 15; // １サイクルあたりのいいね数
         public long ClickDelay_StartTime = -1;
         public string ClickDelay_StatusText = "準備中です.しばらくお待ちください.";
         public float ClickDelay_ElapsedTime { get; private set; }
 
         /* アプリケーション管理 */
-        bool AutoLikeApplication_IsRun = false; // アプリの状態
-        public int MaxLikeCountPerCycle = 15; // １サイクルあたりのいいね数
+        bool AutoLikeApplication_IsRun = false; // アプリの状態. Stop/Startに利用
 
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // 背景の色をフェイスブックぽく設定
             this.BackColor = Color.FromArgb(66, 103, 178);
             this.button_Run.BackColor = Color.FromArgb(245, 246, 247);
 
@@ -43,14 +44,23 @@ namespace FacebookAutoLikeConsoleSelenium
             webBrowser1.DocumentCompleted += WebBrowser1_DocumentCompleted;
             webBrowser1.Navigating += WebBrowser1_Navigating;
 
+            // レジストリに保存していたFBのアカウント情報をを読み出してUIに設定
             Properties.Settings.Default.Reload();
             textBox_FB_ID.Text = Properties.Settings.Default.facebook_id;
             textBox_FB_Password.Text = Properties.Settings.Default.facebook_pw;
 
-
+            // ２タブ目の設定画面の設定値のデフォルトを設定
+            numericUpDown_ClickDelay_MinSec.Value = ClickDelay_MinSec;
+            numericUpDown_ClickDelay_MaxSec.Value = ClickDelay_MaxSec;
+            numericUpDown_MaxLikeCountPerCycle.Value = ClickDelay_CurrentDelaySec;
 
         }
 
+        /// <summary>
+        /// webBrowserが更新し始めたときに呼ばれるイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WebBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
             Debug.WriteLine("WebBrowser1_Navigating");
@@ -59,9 +69,13 @@ namespace FacebookAutoLikeConsoleSelenium
             /* ボタンの操作拒否 */
             this.button_Run.Enabled = false;
             this.button_Stop.Enabled = false;
-
         }
 
+        /// <summary>
+        /// WebBrowserの更新が終わったときに呼ばれるイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WebBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             Debug.WriteLine("WebBrowser1_DocumentCompleted");
@@ -77,6 +91,7 @@ namespace FacebookAutoLikeConsoleSelenium
         /// </summary>
         private async void timer_Scrayping_Tick(object sender, EventArgs e)
         {
+            // タイマーを停止
             this.timer_Scrayping.Enabled = false;
 
             // (動作継続判定) アプリ動作状態が停止希望なら停止させる
@@ -103,8 +118,8 @@ namespace FacebookAutoLikeConsoleSelenium
                 this.timer_Scrayping.Enabled = true; // タイマー継続
                 return;
             }
-            // (動作継続判定) 3. ある程度スクレイピングした段階で終了, リフレッシュ | アプリストップ
-            int LikedPerPage = UFI_LikeLinks.Count - UFI_UnLikeLinks.Count; // いいねされた数
+            // (動作継続判定) 3. ある程度スクレイピングした段階で終了, リフレッシュ or アプリストップ
+            int LikedPerPage = UFI_LikeLinks.Count - UFI_UnLikeLinks.Count; // いいねされた数を計算
             if (LikedPerPage > this.MaxLikeCountPerCycle)
             {
                 this.AutoLikeApplication_IsRun = false; // アプリストップ
@@ -113,13 +128,12 @@ namespace FacebookAutoLikeConsoleSelenium
                 this.ClickDelay_StatusText = $"{LikedPerPage}個いいね済みです。時間を置いて実行してください。";
                 this.webBrowser1.Refresh();
                 this.webBrowser1.Update();
-                this.timer_Scrayping.Enabled = false;
                 return;
             }
 
+
+
             int n = 0;
-            System.Random r = new System.Random();
-            n = r.Next(0, UFI_UnLikeLinks.Count - 1);
 
             /* ターゲットのいいね(最も先頭)に移動 */
             if (UFI_UnLikeLinks.Count > 0)
@@ -188,6 +202,8 @@ namespace FacebookAutoLikeConsoleSelenium
             this.ClickDelay_MaxSec = (int)7;
             this.ClickDelay_MinSec = (int)numericUpDown_ClickDelay_MinSec.Value;
             this.ClickDelay_MaxSec = (int)numericUpDown_ClickDelay_MaxSec.Value;
+            this.MaxLikeCountPerCycle = (int)numericUpDown_MaxLikeCountPerCycle.Value;
+
 
             /* 次のクリックまでのディレイ時間の計算 */
             System.Random rand = new System.Random();
@@ -241,7 +257,7 @@ namespace FacebookAutoLikeConsoleSelenium
                 {
                     HtmlElement elm = UFI_UnLikeLinks[n];
 
-                    //elm.InvokeMember("click");
+                    elm.InvokeMember("click");
 
                     this.TotalLikeNumber++;
 

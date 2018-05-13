@@ -1,6 +1,6 @@
-﻿namespace FacebookAutoLikeConsoleSelenium
+﻿namespace FBLikeLikeLike
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// 必要なデザイナー変数です。
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.button_Run = new System.Windows.Forms.Button();
             this.button_Stop = new System.Windows.Forms.Button();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
@@ -40,7 +40,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button3 = new System.Windows.Forms.Button();
@@ -48,27 +47,24 @@
             this.button_Reflesh = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDown_ClickDelay_MinSec = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_ClickDelay_MaxSec = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_MaxLikeCountPerCycle = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox_FB_PW_Cheked = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox_FB_ID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_FB_Password = new System.Windows.Forms.TextBox();
-            this.checkBox_FB_PW_Cheked = new System.Windows.Forms.CheckBox();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown_ClickDelay_MaxSec = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown_ClickDelay_MinSec = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label_LikeCount = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -81,13 +77,10 @@
             this.flowLayoutPanel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ClickDelay_MaxSec)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ClickDelay_MinSec)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ClickDelay_MaxSec)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_MaxLikeCountPerCycle)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -154,7 +147,7 @@
             this.textBox_BrowserURL.MinimumSize = new System.Drawing.Size(4, 20);
             this.textBox_BrowserURL.Name = "textBox_BrowserURL";
             this.textBox_BrowserURL.ReadOnly = true;
-            this.textBox_BrowserURL.Size = new System.Drawing.Size(362, 20);
+            this.textBox_BrowserURL.Size = new System.Drawing.Size(362, 19);
             this.textBox_BrowserURL.TabIndex = 3;
             // 
             // tabControl1
@@ -199,18 +192,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1056, 458);
             this.splitContainer1.SplitterDistance = 425;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(103)))), ((int)(((byte)(178)))));
-            this.label1.Font = new System.Drawing.Font("メイリオ", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(3, 2);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(160, 40);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "LikeLikeLike";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel2
             // 
@@ -303,35 +284,104 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.numericUpDown_ClickDelay_MinSec);
             this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.numericUpDown_ClickDelay_MaxSec);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.numericUpDown3);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.numericUpDown_ClickDelay_MinSec);
+            this.groupBox2.Controls.Add(this.numericUpDown_ClickDelay_MaxSec);
+            this.groupBox2.Controls.Add(this.numericUpDown_MaxLikeCountPerCycle);
             this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.numericUpDown4);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.numericUpDown5);
-            this.groupBox2.Controls.Add(this.numericUpDown6);
             this.groupBox2.Location = new System.Drawing.Point(3, 130);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(398, 223);
+            this.groupBox2.Size = new System.Drawing.Size(434, 122);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.groupBox2.Text = "自動サイクルの設定";
             // 
-            // button2
+            // label4
             // 
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(304, 179);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(21, 30);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(77, 12);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "遅延最短時間";
+            // 
+            // numericUpDown_ClickDelay_MinSec
+            // 
+            this.numericUpDown_ClickDelay_MinSec.Location = new System.Drawing.Point(174, 30);
+            this.numericUpDown_ClickDelay_MinSec.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDown_ClickDelay_MinSec.Name = "numericUpDown_ClickDelay_MinSec";
+            this.numericUpDown_ClickDelay_MinSec.Size = new System.Drawing.Size(43, 19);
+            this.numericUpDown_ClickDelay_MinSec.TabIndex = 8;
+            this.numericUpDown_ClickDelay_MinSec.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDown_ClickDelay_MaxSec
+            // 
+            this.numericUpDown_ClickDelay_MaxSec.Location = new System.Drawing.Point(174, 55);
+            this.numericUpDown_ClickDelay_MaxSec.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDown_ClickDelay_MaxSec.Name = "numericUpDown_ClickDelay_MaxSec";
+            this.numericUpDown_ClickDelay_MaxSec.Size = new System.Drawing.Size(43, 19);
+            this.numericUpDown_ClickDelay_MaxSec.TabIndex = 9;
+            this.numericUpDown_ClickDelay_MaxSec.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDown_MaxLikeCountPerCycle
+            // 
+            this.numericUpDown_MaxLikeCountPerCycle.Location = new System.Drawing.Point(174, 78);
+            this.numericUpDown_MaxLikeCountPerCycle.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown_MaxLikeCountPerCycle.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown_MaxLikeCountPerCycle.Name = "numericUpDown_MaxLikeCountPerCycle";
+            this.numericUpDown_MaxLikeCountPerCycle.Size = new System.Drawing.Size(43, 19);
+            this.numericUpDown_MaxLikeCountPerCycle.TabIndex = 10;
+            this.numericUpDown_MaxLikeCountPerCycle.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(21, 80);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(147, 12);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "1サイクルでの最大いいね回数";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(21, 55);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 12);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "遅延最長時間";
             // 
             // groupBox1
             // 
@@ -342,10 +392,21 @@
             this.groupBox1.Controls.Add(this.textBox_FB_Password);
             this.groupBox1.Location = new System.Drawing.Point(8, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(393, 105);
+            this.groupBox1.Size = new System.Drawing.Size(429, 105);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Acount";
+            // 
+            // checkBox_FB_PW_Cheked
+            // 
+            this.checkBox_FB_PW_Cheked.AutoSize = true;
+            this.checkBox_FB_PW_Cheked.Location = new System.Drawing.Point(84, 73);
+            this.checkBox_FB_PW_Cheked.Name = "checkBox_FB_PW_Cheked";
+            this.checkBox_FB_PW_Cheked.Size = new System.Drawing.Size(123, 16);
+            this.checkBox_FB_PW_Cheked.TabIndex = 4;
+            this.checkBox_FB_PW_Cheked.Text = "パスワードを表示する";
+            this.checkBox_FB_PW_Cheked.UseVisualStyleBackColor = true;
+            this.checkBox_FB_PW_Cheked.CheckedChanged += new System.EventHandler(this.checkBox_FB_PW_Cheked_CheckedChanged);
             // 
             // label3
             // 
@@ -383,78 +444,17 @@
             this.textBox_FB_Password.UseSystemPasswordChar = true;
             this.textBox_FB_Password.TextChanged += new System.EventHandler(this.textBox_FB_Password_TextChanged);
             // 
-            // checkBox_FB_PW_Cheked
+            // label1
             // 
-            this.checkBox_FB_PW_Cheked.AutoSize = true;
-            this.checkBox_FB_PW_Cheked.Location = new System.Drawing.Point(84, 73);
-            this.checkBox_FB_PW_Cheked.Name = "checkBox_FB_PW_Cheked";
-            this.checkBox_FB_PW_Cheked.Size = new System.Drawing.Size(123, 16);
-            this.checkBox_FB_PW_Cheked.TabIndex = 4;
-            this.checkBox_FB_PW_Cheked.Text = "パスワードを表示する";
-            this.checkBox_FB_PW_Cheked.UseVisualStyleBackColor = true;
-            this.checkBox_FB_PW_Cheked.CheckedChanged += new System.EventHandler(this.checkBox_FB_PW_Cheked_CheckedChanged);
-            // 
-            // numericUpDown6
-            // 
-            this.numericUpDown6.Location = new System.Drawing.Point(113, 153);
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(43, 19);
-            this.numericUpDown6.TabIndex = 13;
-            // 
-            // numericUpDown5
-            // 
-            this.numericUpDown5.Location = new System.Drawing.Point(113, 128);
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(43, 19);
-            this.numericUpDown5.TabIndex = 12;
-            // 
-            // numericUpDown4
-            // 
-            this.numericUpDown4.Location = new System.Drawing.Point(113, 103);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(43, 19);
-            this.numericUpDown4.TabIndex = 11;
-            // 
-            // numericUpDown3
-            // 
-            this.numericUpDown3.Location = new System.Drawing.Point(113, 78);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(43, 19);
-            this.numericUpDown3.TabIndex = 10;
-            // 
-            // numericUpDown_ClickDelay_MaxSec
-            // 
-            this.numericUpDown_ClickDelay_MaxSec.Location = new System.Drawing.Point(113, 53);
-            this.numericUpDown_ClickDelay_MaxSec.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.numericUpDown_ClickDelay_MaxSec.Name = "numericUpDown_ClickDelay_MaxSec";
-            this.numericUpDown_ClickDelay_MaxSec.Size = new System.Drawing.Size(43, 19);
-            this.numericUpDown_ClickDelay_MaxSec.TabIndex = 9;
-            this.numericUpDown_ClickDelay_MaxSec.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown_ClickDelay_MinSec
-            // 
-            this.numericUpDown_ClickDelay_MinSec.Location = new System.Drawing.Point(113, 28);
-            this.numericUpDown_ClickDelay_MinSec.Minimum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.numericUpDown_ClickDelay_MinSec.Name = "numericUpDown_ClickDelay_MinSec";
-            this.numericUpDown_ClickDelay_MinSec.Size = new System.Drawing.Size(43, 19);
-            this.numericUpDown_ClickDelay_MinSec.TabIndex = 8;
-            this.numericUpDown_ClickDelay_MinSec.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(103)))), ((int)(((byte)(178)))));
+            this.label1.Font = new System.Drawing.Font("メイリオ", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(3, 2);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(160, 40);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "LikeLikeLike";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel1
             // 
@@ -523,61 +523,34 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1070, 34);
             this.tableLayoutPanel3.TabIndex = 5;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 30);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 12);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "遅延最短時間";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 55);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 12);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "遅延最長時間";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(21, 80);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 12);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "label6";
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(21, 105);
+            this.label7.Location = new System.Drawing.Point(242, 36);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 12);
+            this.label7.Size = new System.Drawing.Size(114, 12);
             this.label7.TabIndex = 17;
-            this.label7.Text = "label7";
+            this.label7.Text = "※ (例)最低3秒は待つ";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(21, 130);
+            this.label8.Location = new System.Drawing.Point(242, 55);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 12);
+            this.label8.Size = new System.Drawing.Size(114, 12);
             this.label8.TabIndex = 18;
-            this.label8.Text = "label8";
+            this.label8.Text = "※ (例)最長5秒は待つ";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(21, 155);
+            this.label9.Location = new System.Drawing.Point(242, 78);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 12);
+            this.label9.Size = new System.Drawing.Size(170, 12);
             this.label9.TabIndex = 19;
-            this.label9.Text = "label9";
+            this.label9.Text = "※ (例)5回イイネしたら画面を更新";
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -587,7 +560,7 @@
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "LikeLikeLike";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
@@ -601,14 +574,11 @@
             this.tabPage2.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ClickDelay_MinSec)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ClickDelay_MaxSec)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_MaxLikeCountPerCycle)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ClickDelay_MaxSec)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ClickDelay_MinSec)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
@@ -638,16 +608,12 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button button_Login;
         private System.Windows.Forms.Button button_Reflesh;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.CheckBox checkBox_FB_PW_Cheked;
-        private System.Windows.Forms.NumericUpDown numericUpDown6;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.NumericUpDown numericUpDown_MaxLikeCountPerCycle;
         private System.Windows.Forms.NumericUpDown numericUpDown_ClickDelay_MaxSec;
         private System.Windows.Forms.NumericUpDown numericUpDown_ClickDelay_MinSec;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -655,12 +621,12 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label_LikeCount;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
     }
 }
 
